@@ -1,9 +1,8 @@
 package Plotter;
 
-public class AxisGraph implements Graph{
+public class AxisGraph extends DecoratorGraph{
 
-	@Override
-	public void Draw() {
+	public void addAxis() {
 		// TODO Auto-generated method stub
 		
 	}
