@@ -8,14 +8,18 @@ public class Source extends Observable {
 	
 	int[] values = new int[10];
 	
-	
+	Source(){
+		for(int i = 0; i< 10; i++) {
+			values[i] = (int) (Math.random() * 200) + 1;
+		}
+		notifyObservers();
+		setChanged();
+	}
 	public void updateValues() {
 		
 		for(int i = 0; i< 10; i++) {
-			values[i] = (int)(Math.random()*100);
-			//System.out.println(Math.random());
+			values[i] = (int) (Math.random() * 200) + 1;
 		}
-		
 		notifyObservers();
 		setChanged();
 		
