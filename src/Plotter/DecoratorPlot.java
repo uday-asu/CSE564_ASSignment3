@@ -12,7 +12,7 @@ public class DecoratorPlot extends Plot {
 	}
 
 	@Override
-	public void graphPlotter(ArrayList<Integer> values, Graphics g) {
+	public void graphPlotter(ArrayList<ArrayList<Integer>> values, Graphics g) {
 		if( plot != null ){
 			plot.graphPlotter(values,g);
 		}

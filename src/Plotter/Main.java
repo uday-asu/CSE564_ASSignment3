@@ -8,7 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Main extends JFrame implements ActionListener {
-	Source source = new Source();
+	private Source source = new Source();
 	public static void main(String[] args) {
 		Main obj = new Main();
 		obj.draw();
@@ -23,22 +23,16 @@ public class Main extends JFrame implements ActionListener {
 		setLayout(null);
 
 		//setting the bounds for the JFrame
-		setBounds(100,0,900,800);
+		setBounds(50,50,440,700);
 		Border br = BorderFactory.createLineBorder(Color.black);
 		Container c = getContentPane();
 
 
-		//Creating a JPanel for the JFrame
-		JPanel panel=new JPanel();
-		JPanel panel2=new JPanel();
-		JPanel panel3=new JPanel();
-
 		//Plot Panel
 
-		PlotPanel p1 = new PlotPanel();
-		PlotPanel p2 = new PlotPanel();
-		PlotPanel p3 = new PlotPanel();
-
+		PlotPanel p1 = new PlotPanel(10,10);
+		PlotPanel p2 = new PlotPanel(10,170);
+		PlotPanel p3 = new PlotPanel(10,340);
 
 
 		source.addObserver(p1);
@@ -48,50 +42,15 @@ public class Main extends JFrame implements ActionListener {
 		//Creation of ActionListener
 		JButton button =new JButton("Run");
 		button.addActionListener(this);
-
-
-		//setting the panel layout as null
-//		panel.setLayout(null);
-//		panel2.setLayout(null);
-//		panel3.setLayout(null);
-//		button.setLayout(null);
-		p1.setLayout(null);
-		p1.setBounds(10,10,400,150);
-
-//		p2.setLayout(null);
-//		p2.setBounds(10,170,400,150);
-//
-//		p3.setLayout(null);
-//		p3.setBounds(10,340,400,150);
-
-
-//		panel.setBackground(Color.yellow);
-//		panel.setBounds(10,10,400,150);
-//		//Panel 2
-//		panel2.setBackground(Color.red);
-//		panel2.setBounds(10,170,400,150);
-//		//Panel 3
-//		panel3.setBackground(Color.green);
-//		panel3.setBounds(10,340,400,150);
-//		//Panel 4
 		button.setBackground(Color.red);
-		button.setBounds(0,600,100,75);
-
-		// Panel border
-//		panel.setBorder(br);
-//		panel2.setBorder(br);
-//		panel3.setBorder(br);
-
-		p1.setBorder(br);
-//		p2.setBorder(br);
-//		p3.setBorder(br);
+		button.setBounds(150,510,100,75);
 
 		button.setBorder(br);
 
 		//adding the panel to the Container of the JFrame
 		c.add(p1);
-//		c.add(p2);
-//		c.add(p3);
+		c.add(p2);
+		c.add(p3);
 
 		c.add(button);
 
@@ -103,8 +62,10 @@ public class Main extends JFrame implements ActionListener {
 	 * @param e the event to be processed
 	 */
 	public void actionPerformed(ActionEvent e){
-		System.out.println("Button was Clicked");
-		source.updateValues();
+		RandomNumGen randomNumGen = RandomNumGen.getInstance();
+		randomNumGen.generateRandomNumber();
+		source.setChanged();
+		source.notifyObservers();
 	}
 
 }
