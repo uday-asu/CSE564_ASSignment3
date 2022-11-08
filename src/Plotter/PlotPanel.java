@@ -4,12 +4,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Line2D;
 import java.util.ArrayList;
-import java.util.Observable;
-import java.util.Observer;
+
 
 public class PlotPanel extends JPanel implements Observer {
 
-	private ArrayList< ArrayList<Integer> > output;
+	private ArrayList output;
 	private Plot plot;
 	private static int width = 400;
 	private static int height = 150;
@@ -28,32 +27,25 @@ public class PlotPanel extends JPanel implements Observer {
 	public void update(Observable o, Object arg) {
 		Source s = (Source) o;
 		output = s.getValues();
-		System.out.println();
-
+		repaint();
 	}
-	public void paintComponent(Graphics graphic) {
+	@Override
+	public void paint(Graphics graphic) {
 		super.paintComponent(graphic);
-		if( output.get(0).size() > 0 ){
+		if( output != null ){
 			plot.graphPlotter(getPlotPoints(output), graphic);
 		}
 
 	}
-	public ArrayList<ArrayList<Integer>> getPlotPoints(ArrayList<ArrayList<Integer>> values){
-		ArrayList<ArrayList<Integer> > plots = new ArrayList<>();
-		for(int i = 0 ; i < 2 ; i++ ){
-			plots.add(new ArrayList<Integer>());
-		}
+	public ArrayList getPlotPoints(ArrayList<ArrayList<Integer>> values){
+		ArrayList plots = new ArrayList<>();
 		int x = 0;
-		for(int i = 0 ; i < values.get(0).size(); i++ ){
-			int numx = values.get(0).get(i);
-			int numy = values.get(1).get(i);
-
-			int y = (int) (height * (1 - ((float) numy) / 100));
-			plots.get(0).add(x);
-			plots.get(1).add(y);
+		for (int i = 0; i < output.size(); i++) {
+			int num = (int) output.get(i);
+			int y = (int) (height * (1 - ((float) num) / 100));
+			int[] point = { x, y };
+			plots.add(point);
 			x = x + width / 20;
-
-
 		}
 		return plots;
 	}

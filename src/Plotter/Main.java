@@ -6,6 +6,7 @@ import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class Main extends JFrame implements ActionListener {
 	private Source source = new Source();
@@ -30,14 +31,16 @@ public class Main extends JFrame implements ActionListener {
 
 		//Plot Panel
 
-		PlotPanel p1 = new PlotPanel(10,10);
-		PlotPanel p2 = new PlotPanel(10,170);
-		PlotPanel p3 = new PlotPanel(10,340);
-
-
+		PlotPanel p1 = new PlotPanel(0,0).setPlot(new GeneralPlot());
+		c.add(p1);
 		source.addObserver(p1);
+		PlotPanel p2 = new PlotPanel(10,170).setPlot(new PointPlot(new GeneralPlot()));
+		c.add(p2);
 		source.addObserver(p2);
+		PlotPanel p3 = new PlotPanel(10,340).setPlot(new BarPlot(new PointPlot(new GeneralPlot())));
+		c.add(p3);
 		source.addObserver(p3);
+
 
 		//Creation of ActionListener
 		JButton button =new JButton("Run");
@@ -48,11 +51,11 @@ public class Main extends JFrame implements ActionListener {
 		button.setBorder(br);
 
 		//adding the panel to the Container of the JFrame
-		c.add(p1);
-		c.add(p2);
-		c.add(p3);
-
 		c.add(button);
+
+
+
+
 
 		setVisible(true);
 	}
@@ -62,6 +65,7 @@ public class Main extends JFrame implements ActionListener {
 	 * @param e the event to be processed
 	 */
 	public void actionPerformed(ActionEvent e){
+		System.out.println("Button was clicked");
 		RandomNumGen randomNumGen = RandomNumGen.getInstance();
 		randomNumGen.generateRandomNumber();
 		source.setChanged();

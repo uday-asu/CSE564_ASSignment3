@@ -1,10 +1,12 @@
 package Plotter;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class RandomNumGen {
 
     private static RandomNumGen instance;
+    private Random ran = new Random();
     private ArrayList<Integer> numbers = new ArrayList<>();
     private RandomNumGen(){
 
@@ -16,11 +18,11 @@ public class RandomNumGen {
         return instance;
     }
 
-    public ArrayList<ArrayList<Integer>> generateValues(){
+    public ArrayList generateValues(){
         return new ArrayList(numbers);
     }
     public void generateRandomNumber(){
-        int randomNumber = (int) ( (Math.random() * 200) + 1) % 100;
+        int randomNumber = ran.nextInt(100) ;
         numbers.add(randomNumber);
     }
 }
