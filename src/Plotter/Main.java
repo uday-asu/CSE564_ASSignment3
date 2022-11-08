@@ -1,13 +1,16 @@
 package Plotter;
 
-
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
+/**
+ * The starting point for Program Execution
+ * Included UI component here as it was explained in the Professors Video
+ *
+ */
 public class Main extends JFrame implements ActionListener {
 	private Source source = new Source();
 	public static void main(String[] args) {
@@ -15,22 +18,20 @@ public class Main extends JFrame implements ActionListener {
 		obj.draw();
 	}
 
-
+	/**
+	 * Initiates the JFrame and Divides the frame as per the
+	 * different panels
+	 */
 	public void draw(){
-
 		// Set JFrame Properties
 		setTitle("Graph Plot Creation");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLayout(null);
-
 		//setting the bounds for the JFrame
 		setBounds(50,50,440,700);
 		Border br = BorderFactory.createLineBorder(Color.black);
 		Container c = getContentPane();
-
-
 		//Plot Panel
-
 		PlotPanel p1 = new PlotPanel(0,0).setPlot(new GeneralPlot());
 		c.add(p1);
 		source.addObserver(p1);
@@ -40,23 +41,13 @@ public class Main extends JFrame implements ActionListener {
 		PlotPanel p3 = new PlotPanel(10,340).setPlot(new BarPlot(new PointPlot(new GeneralPlot())));
 		c.add(p3);
 		source.addObserver(p3);
-
-
 		//Creation of ActionListener
 		JButton button =new JButton("Run");
 		button.addActionListener(this);
-		button.setBackground(Color.red);
 		button.setBounds(150,510,100,75);
-
 		button.setBorder(br);
-
 		//adding the panel to the Container of the JFrame
 		c.add(button);
-
-
-
-
-
 		setVisible(true);
 	}
 

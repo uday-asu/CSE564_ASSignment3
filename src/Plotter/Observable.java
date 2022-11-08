@@ -2,6 +2,9 @@ package Plotter;
 
 import java.util.ArrayList;
 
+/**
+ * Made small changes to the original Java class
+ */
 public class Observable {
     private boolean changed = false;
     private ArrayList<Observer> observers;
@@ -42,14 +45,10 @@ public class Observable {
      */
     public void notifyObservers(Object arg) {
         Object[] arrLocal;
-
-//        synchronized (this) {
         if (!changed)
             return;
         arrLocal = observers.toArray();
         clearChanged();
-//        }
-
         for (int i = arrLocal.length-1; i>=0; i--)
             ((Observer)arrLocal[i]).update(this, arg);
     }
